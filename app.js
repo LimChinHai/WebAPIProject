@@ -2,11 +2,25 @@ const Record = require('./Connect');
 const express = require('express');
 const axios = require('axios');
 const { response } = require('express');
+const cors = require('cors');
 const app = express();
 var personaName, steamID, profileURL, competitiveRank, leaderboardRank, soloCompetitiveRank, rankTier;
 var length;
 var i = 0;
 var friends = new Array();
+
+const port = process.env.PORT;
+
+app.use(cors());
+
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept'
+  );
+  next();
+});
 
 app.get('/add', (req, res) =>{
     account_id = req.query.account_id;
@@ -44,12 +58,12 @@ app.get('/add', (req, res) =>{
             friends:friends
         });
 
-        playerValue.save().then(result => {
-            console.log("Success" + result);
-        })
-        .catch(error => {
-            console.log("Error: " + error);
-        });
+        playerValue.save().then(response => {
+            res.status(200).json(response);
+          })
+          .catch(error => {
+            res.status(400).json(error);
+          });
 
     });
 });
@@ -81,4 +95,6 @@ app.get('/getRecords', (req, res) => {
         });
 });
 
-app.listen(5000);
+app.listen(port, () => {
+    console.log(`server listening on port ${port}`);
+  });

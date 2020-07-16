@@ -6,6 +6,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "concurrently": "^5.2.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "mongoose": "^5.9.24"
   },
@@ -13,7 +14,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "client-install": "npm install --prefix client",
-    "start": "node app.js",
+    "start": "web:node app.js",
     "server": "nodemon app.js",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""

@@ -1,13 +1,19 @@
 const mongoose = require('mongoose');
+const port = process.env.PORT;
 
 const db = "mongodb+srv://LimChinHai:podifu98@cluster0-6y2dj.mongodb.net/DOTA2?retryWrites=true&w=majority";
 
-mongoose.connect(db).then(() =>{
-    console.log("Connected to database.");
-})
-.catch(() => {
-    console.log("Error connecting to database");
-});
+mongoose
+  .connect(
+    process.env.MONGODB_URI || db,
+    { useNewUrlParser: true }
+  )
+  .then(() => {
+    console.log('Connected to database');
+  })
+  .catch(error => {
+    console.log('Mongoose connetion error: ', error);
+  });
 
 const dotaSchema = new mongoose.Schema({
     personaName:{type: String},
