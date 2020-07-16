@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const port = process.env.PORT;
+const path = require('path');
 
 const db = "mongodb+srv://LimChinHai:podifu98@cluster0-6y2dj.mongodb.net/DOTA2?retryWrites=true&w=majority";
 
@@ -14,6 +15,14 @@ mongoose
   .catch(error => {
     console.log('Mongoose connetion error: ', error);
   });
+
+  if(process.env.NODE_ENV === 'production'){
+    app.use(express.static('client/build'));
+
+    app.get('*',(req,res) => {
+      res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+    });
+  };
 
 const dotaSchema = new mongoose.Schema({
     personaName:{type: String},
