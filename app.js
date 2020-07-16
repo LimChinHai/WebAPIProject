@@ -2,6 +2,7 @@ const Record = require('./Connect');
 const express = require('express');
 const axios = require('axios');
 const { response } = require('express');
+const path = require('path');
 const cors = require('cors');
 const app = express();
 var personaName, steamID, profileURL, competitiveRank, leaderboardRank, soloCompetitiveRank, rankTier;
